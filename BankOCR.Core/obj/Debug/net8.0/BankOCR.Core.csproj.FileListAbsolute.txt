@@ -1,0 +1,11 @@
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/bin/Debug/net8.0/BankOCR.Core.deps.json
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/bin/Debug/net8.0/BankOCR.Core.dll
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/bin/Debug/net8.0/BankOCR.Core.pdb
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.AssemblyInfoInputs.cache
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.AssemblyInfo.cs
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.csproj.CoreCompileInputs.cache
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.dll
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/refint/BankOCR.Core.dll
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.pdb
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/ref/BankOCR.Core.dll
