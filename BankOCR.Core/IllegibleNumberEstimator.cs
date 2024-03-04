@@ -18,51 +18,117 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
         {" _ |_| _|   ", 9},
     };
 
-    private readonly Dictionary<string,int[]> SegmentOneMap = new Dictionary<string,int[]>
+    private readonly Dictionary<string,bool> SegmentOneMap = new Dictionary<string,bool>
     {
-        {"   ", new int[] {1,4}},
-        {" _ ", new int[] {0,2,3,5,6,8,9}},
+        {"   ",true},
+        {" _ ",true},
     };
 
-    private readonly Dictionary<string,int[]> SegmentTwoMap = new Dictionary<string,int[]>
+    private readonly Dictionary<string,bool> SegmentTwoMap = new Dictionary<string,bool>
     {
-        {"| |", new int[] {0}},
-        {"  |", new int[] {1,7}},
-        {" _|", new int[] {2,3}},
-        {"|_ ", new int[] {5,6}},
-        {"|_|", new int[] {4,8,9}},
+        {"| |",true},
+        {"  |",true},
+        {" _|",true},
+        {"|_ ",true},
+        {"|_|",true},
     };
 
-    private readonly Dictionary<string,int[]> SegmentThreeMap = new Dictionary<string,int[]>
+    private readonly Dictionary<string,bool> SegmentThreeMap = new Dictionary<string,bool>
     {
-        {"  |", new int[] {1,4,7}},
-        {" _|", new int[] {3,5,9}},
-        {"|_ ", new int[] {2}},
-        {"|_|", new int[] {0,6,8}},
+        {"  |", true},
+        {" _|", true},
+        {"|_ ", true},
+        {"|_|", true},
     };
 
-    private readonly Dictionary<string,int[]> SegmentMap = new Dictionary<string,int[]>
+
+    //Digit and code matrix
+    private readonly Dictionary<string, int> DigitCharCodeMap = new Dictionary<string, int> 
     {
-        {" _ ", new int[] {0,2,3,5,6,8,9}},
-        {"| |", new int[] {0}},
-        {"|_|", new int[] {0,4,6,8,9}},
-        {"  |", new int[] {1,4,7}},
-        {" _|", new int[] {2,3,5,9}},
-        {"|_ ", new int[] {2,5,6}},
-        {"   ", new int[] {1,4}},
+        {"   ",1},
+        {" _ ",2},
+        {"| |",3},
+        {"  |",4},
+        {" _|",5},
+        {"|_ ",6},
+        {"|_|",7},
     };
 
-    private readonly Dictionary<string, string[]> DigitSimilMap = new Dictionary<string, string[]>
+    //Code and digit matrix
+    private readonly Dictionary<int, Dictionary<string, int>> NumberDigitCharCodeMap = new Dictionary<int, Dictionary<string, int>>
     {
-        {"0", new string[]{"8"}},
-        {"1", new string[] {"7"}},
-        {"3", new string[] {"9"}},
-        {"5", new string[] {"6", "9"}},
-        {"6", new string[] {"5", "8"}},
-        {"7", new string[]{"1"}},
-        {"8", new string[] {"0","6","9"}},
-        {"9", new string[] {"3", "5", "8"}},
+        {0, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"| |", 3},
+                {"|_|", 7},
+            }
+        },
+        {1, new Dictionary<string, int>
+            {
+                {"   ", 1},
+                {"  |", 4},
+                {"  |", 4},
+            }
+        },
+        {2, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {" _|", 5},
+                {"|_ ", 6},
+            }
+        },
+        {3, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {" _|", 5},
+                {" _|", 5},
+            }
+        },
+        {4, new Dictionary<string, int>
+            {
+                {"   ", 1},
+                {"|_|", 7},
+                {"  |", 4},
+            }
+        },
+        {5, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"|_ ", 6},
+                {" _|", 5},
+            }
+        },
+        {6, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"|_ ", 6},
+                {"|_|", 7},
+            }
+        },
+        {7, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"  |", 4},
+                {"  |", 4},
+            }
+        },
+        {8, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"|_|", 7},
+                {"|_|", 7},
+            }
+        },
+        {9, new Dictionary<string, int>
+            {
+                {" _ ", 2},
+                {"|_|", 7},
+                {" _|", 5},
+            }
+        },
     };
+    
 
     public string[] Estimate(string accountNumber, Func<string, bool> accNumChecksum, Dictionary<string[], int> digitFaults)
     {
@@ -71,39 +137,110 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
             throw new NotSupportedException("accountNumber cannot be null");
         }
 
-        string[] estimates = [];
-        string accNum = accountNumber;
-
-        for (int i = 0; i < accNum.Length; i++)
+        if(accNumChecksum == null)
         {
-            estimates = estimate(accNum[i], i, accountNumber, accNumChecksum);
+            throw new NotSupportedException("accNumChecksum cannot be null");
         }
 
+        if(digitFaults == null || digitFaults.Count == 0)
+        {
+            throw new NotSupportedException("digitFaults cannot be null");
+        }
+
+        string[] estimates = [];
+        string accNum = accountNumber;
+        foreach (var item in digitFaults)
+        {
+            var ests = estimate(item.Key, item.Value, accNum, accNumChecksum);
+            estimates = estimates.Concat(ests).ToArray();
+        }
         return estimates;        
     }
 
-    private string[] estimate(char digit, int index, string accountNumber, Func<string, bool> accNumChecksum)
+    private string[] estimate(string[] faultDigit, int index, string accountNumber, Func<string, bool> accNumChecksum)
     {
-        if (!DigitSimilMap.ContainsKey(digit.ToString()))
+        List<string> estimates = [];
+        if (faultDigit.Length != 4)
         {
-            return [];
+            return estimates.ToArray();
         }
 
-        StringBuilder accNum = new StringBuilder(accountNumber);
-        string [] replacements = DigitSimilMap[digit.ToString()];
-        List<string> estimates = [];
+        var segLook = FindFaultySegment(faultDigit);
+        var faultSegment = segLook.Item1;
+        var segIndex = segLook.Item2;
 
-        for (int i = 0; i < replacements.Length; i++)
-        {
-            accNum.Remove(index, 1);
-            accNum.Insert(index, replacements[i]);
-            
-            if(accNumChecksum(accNum.ToString()))
+        if(segIndex < 0) return estimates.ToArray();
+        
+        var faultPart =  faultDigit[segIndex];
+        HashSet<string> matches = [];
+
+        for (int i = 0; i < 3; i++)
+        {            
+            StringBuilder faultPartBuilder = new(faultPart);
+            var spaceKey = faultPartBuilder.Remove(i, 1).Insert(i, " ").ToString();
+            var underscoreKey = faultPartBuilder.Remove(i, 1).Insert(i, "_").ToString();
+            var pipeKey = faultPartBuilder.Remove(i, 1).Insert(i, "|").ToString();    
+
+            if(faultSegment.ContainsKey(spaceKey))
             {
-                estimates.Add(accNum.ToString());
+                matches.Add(spaceKey);
+            }
+
+            if(faultSegment.ContainsKey(underscoreKey))
+            {
+                matches.Add(underscoreKey);
+            }
+
+            if(faultSegment.ContainsKey(pipeKey))
+            {
+                matches.Add(pipeKey);
+            }
+        }
+
+        StringBuilder accNumBuilder = new(accountNumber);
+
+        foreach (var match in matches)
+        {
+            faultDigit[segIndex] = match;
+            var digitKey = string.Join("", faultDigit);
+            accNumBuilder.Remove(index, 1);
+            accNumBuilder.Insert(index, DigitMap[digitKey].ToString());
+            
+            if(accNumChecksum(accNumBuilder.ToString()))
+            {
+                estimates.Add(accNumBuilder.ToString());
             }
         }
 
         return estimates.ToArray();
+    }
+
+    public Tuple<Dictionary<string, bool>, int> FindFaultySegment(string[] faultDigit)
+    {
+        var faultSegment = new Dictionary<string,bool>();        
+        var faultCount = 0;
+        var segIndex = -1;
+
+        if(!SegmentOneMap.ContainsKey(faultDigit[0]))
+        {
+            faultSegment = SegmentOneMap;
+            faultCount++;
+            segIndex = 0;
+        }
+        else if(!SegmentTwoMap.ContainsKey(faultDigit[1]))
+        {
+            faultSegment = SegmentTwoMap;
+            faultCount++;
+            segIndex = 1;
+        }
+        else if(!SegmentThreeMap.ContainsKey(faultDigit[2]))
+        {
+            faultSegment = SegmentThreeMap;
+            faultCount++;
+            segIndex = 2;
+        }
+
+        if(faultCount > 1) return new Tuple<Dictionary<string, bool>, int>(new Dictionary<string, bool>(), -1);
+        return new Tuple<Dictionary<string, bool>, int>(faultSegment, segIndex);
     }
 }

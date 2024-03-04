@@ -18,15 +18,9 @@ public class InvalidNumberEstimator : IAccountNumberEstimator
 
     public string[] Estimate(string accountNumber, Func<string, bool> accNumChecksum, Dictionary<string[], int> digitFaults)
     {
-        if(string.IsNullOrEmpty(accountNumber))
-        {
-            throw new NotSupportedException("accountNumber cannot be null");
-        }
+        if(string.IsNullOrEmpty(accountNumber)) throw new NotSupportedException("accountNumber cannot be null");
 
-        if(accNumChecksum == null)
-        {
-            throw new NotSupportedException("accNumChecksum cannot be null");
-        }
+        if(accNumChecksum == null) throw new NotSupportedException("accNumChecksum cannot be null");
 
         string[] estimates = [];
         string accNum = accountNumber;
@@ -36,15 +30,12 @@ public class InvalidNumberEstimator : IAccountNumberEstimator
             estimates = estimate(accNum[i], i, accountNumber, accNumChecksum);
         }
 
-        return estimates;        
+        return estimates;
     }
 
     private string[] estimate(char digit, int index, string accountNumber, Func<string, bool> accNumChecksum)
     {
-        if (!DigitSimilMap.ContainsKey(digit.ToString()))
-        {
-            return [];
-        }
+        if (!DigitSimilMap.ContainsKey(digit.ToString())) return [];
 
         StringBuilder accNum = new StringBuilder(accountNumber);
         string [] replacements = DigitSimilMap[digit.ToString()];
