@@ -9,3 +9,4 @@
 /Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/refint/BankOCR.Core.dll
 /Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.pdb
 /Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/ref/BankOCR.Core.dll
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Core/obj/Debug/net8.0/BankOCR.Core.sourcelink.json

@@ -99,3 +99,4 @@
 /Users/eldrichmetler/Code/BankOCR/BankOCR.NTest/obj/Debug/net8.0/BankOCR.NTest.pdb
 /Users/eldrichmetler/Code/BankOCR/BankOCR.NTest/obj/Debug/net8.0/BankOCR.NTest.genruntimeconfig.cache
 /Users/eldrichmetler/Code/BankOCR/BankOCR.NTest/obj/Debug/net8.0/ref/BankOCR.NTest.dll
+/Users/eldrichmetler/Code/BankOCR/BankOCR.NTest/obj/Debug/net8.0/BankOCR.NTest.sourcelink.json

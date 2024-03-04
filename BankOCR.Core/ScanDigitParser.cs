@@ -3,10 +3,9 @@ namespace BankOCR.Core;
 public class ScanDigitParser : IDigitParser
 {
     private const string DigitsExceptionDescr = 
-    "entry must be an array of length 4 and each entry must be of length 3"; 
+        "entry must be an array of length 4 and each entry must be of length 3"; 
     private const int MaxStringLen = 3;
     private const int MaxEntryLen = 4;
-
     private readonly Dictionary<string, int> DigitMap = new Dictionary<string, int>
     {
         {" _ | ||_|   ", 0},
@@ -20,7 +19,7 @@ public class ScanDigitParser : IDigitParser
         {" _ |_||_|   ", 8},
         {" _ |_| _|   ", 9},
     };
-    
+
     private string[]? _entry;
 
     private bool isEntryValid(){

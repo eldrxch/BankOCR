@@ -87,7 +87,7 @@ public class TestAccountNumber
         Assert.That(value, Is.EqualTo(expect));                
     }
 
-    [Test]
+    [Test(Description = "Should throw exception when value is not a number")]
     public void Value_ShouldError()
     {
         var reader = new ScanDigitReader(new string[] { " _ ", "| |", " _|", "   " });
@@ -96,7 +96,7 @@ public class TestAccountNumber
         Assert.Throws<Exception>(() => account.Value());
     }
 
-    [Test]
+    [Test(Description = "Should return true if account number passes checksum test")]
     [TestCaseSource(nameof(ValidAccChecksumTestCases))]
     public void IsValid_Should_Pass(string[] input, string expect)
     {
@@ -107,7 +107,8 @@ public class TestAccountNumber
         Assert.That(value, Is.EqualTo(expect));
         Assert.That(account.IsValid(), Is.True);
     }
-    [Test]    
+
+    [Test(Description = "Should return false if account number fails checksum test")]    
     public void IsValid_Should_NotPass()
     {
         var input = new string[]
@@ -126,7 +127,7 @@ public class TestAccountNumber
         Assert.That(account.IsValid(), Is.False);
     }
 
-    [Test]
+    [Test(Description = "Should return true if account number is illegible")]
     [TestCaseSource(nameof(ValidAccChecksumTestCases))]
     public void IsIllegible_Should_NotPass(string[] input, string expect)
     {
@@ -138,7 +139,7 @@ public class TestAccountNumber
         Assert.That(account.IsIllegible(), Is.False);
     }
 
-    [Test]
+    [Test(Description = "Should return false if account number is legible")]
     public void IsIllegible_Should_Pass()
     {
         var input = new string[]
@@ -155,5 +156,5 @@ public class TestAccountNumber
         var value = account.Value();
         Assert.That(value, Is.EqualTo(expect));
         Assert.That(account.IsIllegible(), Is.True);
-    }        
+    }
 }

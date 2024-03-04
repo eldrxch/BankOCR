@@ -46,7 +46,7 @@ public class TestAccountNumberWriter
             "                           "
         };
         var reader = new ScanDigitReader(entry);
-        var parser = new ScanDigitParser();
+        var parser = new ScanDigitParser();        
         var numbers = new AccountNumber[] { new AccountNumber(reader, parser) };
         var writer = new AccountNumberWriter(_tempFilePath);
         var count = writer.Write(numbers);
