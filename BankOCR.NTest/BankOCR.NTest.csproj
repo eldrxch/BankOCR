@@ -35,7 +35,11 @@
     <EmbeddedResource Include="TestData\AccDigits.txt">        
     </EmbeddedResource>
     <EmbeddedResource Include="TestData\AccChecksum.txt">        
-    </EmbeddedResource>    
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestData\AccIllegible.txt">
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestData\AccInvalid.txt">
+    </EmbeddedResource>
 </ItemGroup>
   
 </Project>

@@ -22,27 +22,28 @@ public class InvalidNumberEstimator : IAccountNumberEstimator
 
         if(accNumChecksum == null) throw new NotSupportedException("accNumChecksum cannot be null");
 
-        string[] estimates = [];
+        List<string> estimates = [];
         string accNum = accountNumber;
 
         for (int i = 0; i < accNum.Length; i++)
         {
-            estimates = estimate(accNum[i], i, accountNumber, accNumChecksum);
+             var est = estimate(accNum[i], i, accountNumber, accNumChecksum);
+             if(est.Length > 0) estimates.AddRange(est);
         }
 
-        return estimates;
+        return estimates.ToArray();
     }
 
     private string[] estimate(char digit, int index, string accountNumber, Func<string, bool> accNumChecksum)
     {
         if (!DigitSimilMap.ContainsKey(digit.ToString())) return [];
-
-        StringBuilder accNum = new StringBuilder(accountNumber);
+        
         string [] replacements = DigitSimilMap[digit.ToString()];
         List<string> estimates = [];
 
         for (int i = 0; i < replacements.Length; i++)
         {
+            StringBuilder accNum = new StringBuilder(accountNumber);
             accNum.Remove(index, 1);
             accNum.Insert(index, replacements[i]);
             

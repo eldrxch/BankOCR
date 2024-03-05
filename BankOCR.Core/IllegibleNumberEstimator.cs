@@ -17,31 +17,7 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
         {" _ |_||_|   ", 8},
         {" _ |_| _|   ", 9},
     };
-
-    private readonly Dictionary<string,bool> SegmentOneMap = new Dictionary<string,bool>
-    {
-        {"   ",true},
-        {" _ ",true},
-    };
-
-    private readonly Dictionary<string,bool> SegmentTwoMap = new Dictionary<string,bool>
-    {
-        {"| |",true},
-        {"  |",true},
-        {" _|",true},
-        {"|_ ",true},
-        {"|_|",true},
-    };
-
-    private readonly Dictionary<string,bool> SegmentThreeMap = new Dictionary<string,bool>
-    {
-        {"  |", true},
-        {" _|", true},
-        {"|_ ", true},
-        {"|_|", true},
-    };
-
-
+    
     //Digit and code matrix
     private readonly Dictionary<string, int> DigitCharCodeMap = new Dictionary<string, int> 
     {
@@ -66,44 +42,43 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
             throw new NotSupportedException("accNumChecksum cannot be null");
         }
 
-        if(digitFaults == null || digitFaults.Count != 4)
+        if(accountNumber.Split("?").Length != 2)
         {
-            throw new NotSupportedException("digitFaults should be an array of 4 elements");
+            throw new NotSupportedException("accountNumber should contain exactly one illegible digit");
+        }   
+
+        if(digitFaults == null || digitFaults.Count != 1)
+        {
+            throw new NotSupportedException("digitFaults should be a non-empty dictionary with exactly one entry");
         }
 
-        string[] estimates = [];
-        string accNum = accountNumber;
+        HashSet<KeyValuePair<string, int>> matches = new();
+        List<string> estimates = [];        
         foreach (var item in digitFaults)
         {
-            var ests = estimate(item.Key, item.Value, accNum, accNumChecksum);
-            estimates = estimates.Concat(ests).ToArray();
+            var estDigits = EstimateDigitFromFault(item.Key, item.Value);
+            matches = matches.Concat(estDigits).ToHashSet();
         }
-        return estimates;        
-    }
 
-    private string[] estimate(string[] faultDigit, int index, string accountNumber, Func<string, bool> accNumChecksum)
-    {
-        List<string> estimates = [];
-        StringBuilder accNumBuilder = new(accountNumber);
-        var matches = EstimateDigitFromFault(faultDigit);
-        
         foreach (var match in matches)
         {
-            accNumBuilder.Remove(index, 1);
-            accNumBuilder.Insert(index,match);
+            StringBuilder accNumBuilder = new(accountNumber);
+            accNumBuilder.Remove(match.Value, 1);
+            accNumBuilder.Insert(match.Value,match.Key);
             
-            if(accNumChecksum(accNumBuilder.ToString()))
+            if(accNumChecksum(accNumBuilder.ToString()) &&
+                !estimates.Contains(accNumBuilder.ToString()))
             {
                 estimates.Add(accNumBuilder.ToString());
-            }
+            }            
         }
 
         return estimates.ToArray();
     }
 
-    private HashSet<string> EstimateDigitFromFault(string[] faultDigit)
+    private HashSet<KeyValuePair<string, int>> EstimateDigitFromFault(string[] faultDigit, int index)
     {
-        HashSet<string> matches = [];
+        HashSet<KeyValuePair<string, int>> matches = [];
 
         for (int i = 0; i < 3; i++)
         {
@@ -114,9 +89,13 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
                 var underscoreKey = faultPartBuilder.Remove(j, 1).Insert(j, "_").ToString();
                 var pipeKey = faultPartBuilder.Remove(j, 1).Insert(j, "|").ToString();    
                 
-                var segSpace = faultDigit;
-                var segUnderscore = faultDigit;
-                var segPipe = faultDigit;
+                var segSpace = new string[4];
+                var segUnderscore = new string[4];
+                var segPipe = new string[4];
+
+                faultDigit.CopyTo(segSpace, 0);
+                faultDigit.CopyTo(segUnderscore, 0);
+                faultDigit.CopyTo(segPipe, 0);
 
                 segSpace[i] = spaceKey;
                 segUnderscore[i] = underscoreKey;
@@ -124,17 +103,20 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
 
                 if(DigitMap.ContainsKey(string.Join("", segSpace)))
                 {
-                    matches.Add(string.Join("", segSpace));
+                    var digit = DigitMap[string.Join("", segSpace)].ToString();
+                    matches.Add(new KeyValuePair<string, int>(digit, index));
                 }
 
                 if(DigitMap.ContainsKey(string.Join("", segUnderscore)))
                 {
-                    matches.Add(string.Join("", segUnderscore));
+                    var digit = DigitMap[string.Join("", segUnderscore)].ToString();
+                    matches.Add(new KeyValuePair<string, int>(digit, index));
                 }
 
                 if(DigitMap.ContainsKey(string.Join("", segPipe)))
                 {
-                    matches.Add(string.Join("", segPipe));
+                    var digit = DigitMap[string.Join("", segPipe)].ToString();
+                    matches.Add(new KeyValuePair<string, int>(digit, index));
                 }                
             }
         }

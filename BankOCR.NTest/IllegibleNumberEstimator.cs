@@ -102,8 +102,25 @@ public class TestIllegibleNumberEstimator
     public void Estimate_Should_Error()
     {
         var estimator = new IllegibleNumberEstimator();
+        var digitFaults = new Dictionary<string[], int>
+        {
+                { new string[] {
+                        " _ ",
+                        "| |",
+                        "  |",
+                        "   "
+                }, 0 },
+                { new string[] {
+                        " _ ",
+                        "  |",
+                        "|_|",
+                        "   "
+                }, 1 }
+        };
         Assert.Throws<NotSupportedException>(() => estimator.Estimate("", AccNumChecksum, null));
         Assert.Throws<NotSupportedException>(() => estimator.Estimate(null, AccNumChecksum, null));
         Assert.Throws<NotSupportedException>(() => estimator.Estimate("123456789", null, null));
+        Assert.Throws<NotSupportedException>(() => estimator.Estimate("??3456789", null, digitFaults));
+        Assert.Throws<NotSupportedException>(() => estimator.Estimate("123456789", null, digitFaults));
     }
 }

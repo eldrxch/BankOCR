@@ -69,7 +69,51 @@ public class TestAccountNumber
         }
 
         return tests;
-    }    
+    }
+
+    public static List<TestCaseData> ValidAccIllegibleTestCases()
+    {        
+        var tests = new List<TestCaseData>();
+        var file = GetResource("AccIllegible.txt").Split("\n");
+        for (int i = 0; i < file.Length; i+=5)
+        {
+            var input = new string[]
+            {
+                file[i],
+                file[i+1],
+                file[i+2],
+                file[i+3]
+            };
+            var expected = file[i+4];
+            expected = expected.Split("=>")[1].Trim();
+            var tcase = new TestCaseData(input, expected);                
+            tests.Add(tcase);
+        }
+
+        return tests;
+    }
+
+    public static List<TestCaseData> ValidAccInvalidTestCases()
+    {        
+        var tests = new List<TestCaseData>();
+        var file = GetResource("AccInvalid.txt").Split("\n");
+        for (int i = 0; i < file.Length; i+=5)
+        {
+            var input = new string[]
+            {
+                file[i],
+                file[i+1],
+                file[i+2],
+                file[i+3]
+            };
+            var expected = file[i+4];
+            expected = expected.Split("=>")[1].Trim();
+            var tcase = new TestCaseData(input, expected);                
+            tests.Add(tcase);
+        }
+
+        return tests;
+    }
 
     [SetUp]
     public void Setup()
@@ -156,5 +200,27 @@ public class TestAccountNumber
         var value = account.Value();
         Assert.That(value, Is.EqualTo(expect));
         Assert.That(account.IsIllegible(), Is.True);
+    }
+
+    [Test(Description = "Should return array of estimated account numbers for illegible account number")]
+    [TestCaseSource(nameof(ValidAccIllegibleTestCases))]
+    public void ValueEstimates_Illegible_Should_Values(string[] input, string expect)
+    {
+        var reader = new ScanDigitReader(input);
+        var parser = new ScanDigitParser();
+        var account = new AccountNumber(reader, parser);
+        var estimates = account.ValueEstimates(new IllegibleNumberEstimator()); 
+        Assert.That(estimates, Has.Member(expect));
+    }
+
+    [Test(Description = "Should return array of estimated account numbers for invalid account number")]
+    [TestCaseSource(nameof(ValidAccInvalidTestCases))]
+    public void ValueEstimates_Invalid_Should_Values(string[] input, string expect)
+    {
+        var reader = new ScanDigitReader(input);
+        var parser = new ScanDigitParser();
+        var account = new AccountNumber(reader, parser);
+        var estimates = account.ValueEstimates(new InvalidNumberEstimator()); 
+        Assert.That(estimates, Has.Member(expect));
     }
 }

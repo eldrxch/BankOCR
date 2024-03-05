@@ -74,8 +74,8 @@ public class AccountNumber
 
     public string[] ValueEstimates(IAccountNumberEstimator estimator)
     {
-        if (_value == null) return [];
-        return estimator.Estimate(_value, Validate, _errorDigits);
+        if (IsValid()) return [];
+        return estimator.Estimate(Value(), Validate, _errorDigits);
     }
 
     public bool IsValid()
