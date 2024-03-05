@@ -17,7 +17,7 @@ public class TestAccountNumber
             return _assembly;
         }
     }
-    public static string GetResource(string name)
+    static string GetResource(string name)
     {
         var resname = TestAssemby.GetManifestResourceNames().First(x => x.Contains(name));
         using (var stream = TestAssemby.GetManifestResourceStream(resname))

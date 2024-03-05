@@ -1,0 +1,281 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 1 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet  restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in /Users/eldrichmetler/Code/BankOCR/BankOCR.Benchm/bin/Release/net8.0/24ce048e-1089-460a-ab97-6ba41476a78f
+// command took 2.15 sec and exited with 0
+// start dotnet  build -c Release --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in /Users/eldrichmetler/Code/BankOCR/BankOCR.Benchm/bin/Release/net8.0/24ce048e-1089-460a-ab97-6ba41476a78f
+// command took 5.01 sec and exited with 0
+// ***** Done, took 00:00:07 (7.46 sec)   *****
+// Found 1 benchmarks:
+//   BenchReaderWriter.ReadFile: DefaultJob
+
+// **************************
+// Benchmark: BenchReaderWriter.ReadFile: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 24ce048e-1089-460a-ab97-6ba41476a78f.dll --anonymousPipes 105 106 --benchmarkName BankOCR.NTest.BenchReaderWriter.ReadFile --job Default --benchmarkId 0 in /Users/eldrichmetler/Code/BankOCR/BankOCR.Benchm/bin/Release/net8.0/24ce048e-1089-460a-ab97-6ba41476a78f/bin/Release/net8.0
+// Failed to set up high priority (Permission denied). In order to run benchmarks with high priority, make sure you have the right permissions.
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// BenchmarkDotNet v0.13.12
+// Runtime=.NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 367440.00 ns, 367.4400 us/op
+WorkloadJitting  1: 1 op, 3639715.00 ns, 3.6397 ms/op
+
+OverheadJitting  2: 16 op, 460328.00 ns, 28.7705 us/op
+WorkloadJitting  2: 16 op, 21252475.00 ns, 1.3283 ms/op
+
+WorkloadPilot    1: 16 op, 16845185.00 ns, 1.0528 ms/op
+WorkloadPilot    2: 32 op, 32610640.00 ns, 1.0191 ms/op
+WorkloadPilot    3: 64 op, 63660556.00 ns, 994.6962 us/op
+WorkloadPilot    4: 128 op, 179010878.00 ns, 1.3985 ms/op
+WorkloadPilot    5: 256 op, 345433912.00 ns, 1.3494 ms/op
+WorkloadPilot    6: 512 op, 468397963.00 ns, 914.8398 us/op
+WorkloadPilot    7: 1024 op, 778228092.00 ns, 759.9884 us/op
+
+OverheadWarmup   1: 1024 op, 6646.00 ns, 6.4902 ns/op
+OverheadWarmup   2: 1024 op, 3234.00 ns, 3.1582 ns/op
+OverheadWarmup   3: 1024 op, 3273.00 ns, 3.1963 ns/op
+OverheadWarmup   4: 1024 op, 4410.00 ns, 4.3066 ns/op
+OverheadWarmup   5: 1024 op, 3421.00 ns, 3.3408 ns/op
+OverheadWarmup   6: 1024 op, 4731.00 ns, 4.6201 ns/op
+OverheadWarmup   7: 1024 op, 4958.00 ns, 4.8418 ns/op
+OverheadWarmup   8: 1024 op, 3199.00 ns, 3.1240 ns/op
+
+OverheadActual   1: 1024 op, 5477.00 ns, 5.3486 ns/op
+OverheadActual   2: 1024 op, 3509.00 ns, 3.4268 ns/op
+OverheadActual   3: 1024 op, 3426.00 ns, 3.3457 ns/op
+OverheadActual   4: 1024 op, 3290.00 ns, 3.2129 ns/op
+OverheadActual   5: 1024 op, 3145.00 ns, 3.0713 ns/op
+OverheadActual   6: 1024 op, 3428.00 ns, 3.3477 ns/op
+OverheadActual   7: 1024 op, 3405.00 ns, 3.3252 ns/op
+OverheadActual   8: 1024 op, 3495.00 ns, 3.4131 ns/op
+OverheadActual   9: 1024 op, 3446.00 ns, 3.3652 ns/op
+OverheadActual  10: 1024 op, 3557.00 ns, 3.4736 ns/op
+OverheadActual  11: 1024 op, 4871.00 ns, 4.7568 ns/op
+OverheadActual  12: 1024 op, 3313.00 ns, 3.2354 ns/op
+OverheadActual  13: 1024 op, 3606.00 ns, 3.5215 ns/op
+OverheadActual  14: 1024 op, 3389.00 ns, 3.3096 ns/op
+OverheadActual  15: 1024 op, 4531.00 ns, 4.4248 ns/op
+
+WorkloadWarmup   1: 1024 op, 823822117.00 ns, 804.5138 us/op
+WorkloadWarmup   2: 1024 op, 791107982.00 ns, 772.5664 us/op
+WorkloadWarmup   3: 1024 op, 791754497.00 ns, 773.1978 us/op
+WorkloadWarmup   4: 1024 op, 773033779.00 ns, 754.9158 us/op
+WorkloadWarmup   5: 1024 op, 766033920.00 ns, 748.0800 us/op
+WorkloadWarmup   6: 1024 op, 767785192.00 ns, 749.7902 us/op
+WorkloadWarmup   7: 1024 op, 762352677.00 ns, 744.4850 us/op
+
+// BeforeActualRun
+WorkloadActual   1: 1024 op, 767969336.00 ns, 749.9701 us/op
+WorkloadActual   2: 1024 op, 766105336.00 ns, 748.1497 us/op
+WorkloadActual   3: 1024 op, 767593867.00 ns, 749.6034 us/op
+WorkloadActual   4: 1024 op, 771672035.00 ns, 753.5860 us/op
+WorkloadActual   5: 1024 op, 773059684.00 ns, 754.9411 us/op
+WorkloadActual   6: 1024 op, 765618021.00 ns, 747.6738 us/op
+WorkloadActual   7: 1024 op, 769327788.00 ns, 751.2967 us/op
+WorkloadActual   8: 1024 op, 762925264.00 ns, 745.0442 us/op
+WorkloadActual   9: 1024 op, 776562607.00 ns, 758.3619 us/op
+WorkloadActual  10: 1024 op, 763846633.00 ns, 745.9440 us/op
+WorkloadActual  11: 1024 op, 790140866.00 ns, 771.6219 us/op
+WorkloadActual  12: 1024 op, 892327652.00 ns, 871.4137 us/op
+WorkloadActual  13: 1024 op, 779534892.00 ns, 761.2645 us/op
+WorkloadActual  14: 1024 op, 773713939.00 ns, 755.5800 us/op
+WorkloadActual  15: 1024 op, 762175338.00 ns, 744.3119 us/op
+
+// AfterActualRun
+WorkloadResult   1: 1024 op, 767965890.00 ns, 749.9667 us/op
+WorkloadResult   2: 1024 op, 766101890.00 ns, 748.1464 us/op
+WorkloadResult   3: 1024 op, 767590421.00 ns, 749.6000 us/op
+WorkloadResult   4: 1024 op, 771668589.00 ns, 753.5826 us/op
+WorkloadResult   5: 1024 op, 773056238.00 ns, 754.9377 us/op
+WorkloadResult   6: 1024 op, 765614575.00 ns, 747.6705 us/op
+WorkloadResult   7: 1024 op, 769324342.00 ns, 751.2933 us/op
+WorkloadResult   8: 1024 op, 762921818.00 ns, 745.0408 us/op
+WorkloadResult   9: 1024 op, 776559161.00 ns, 758.3586 us/op
+WorkloadResult  10: 1024 op, 763843187.00 ns, 745.9406 us/op
+WorkloadResult  11: 1024 op, 779531446.00 ns, 761.2612 us/op
+WorkloadResult  12: 1024 op, 773710493.00 ns, 755.5767 us/op
+WorkloadResult  13: 1024 op, 762171892.00 ns, 744.3085 us/op
+// GC:  345 166 1 1157881296 1024
+// Threading:  0 0 1024
+
+// AfterAll
+// Benchmark Process 47342 has exited with code 0.
+
+// Run, Diagnostic
+// Execute: dotnet 24ce048e-1089-460a-ab97-6ba41476a78f.dll --anonymousPipes 105 106 --benchmarkName BankOCR.NTest.BenchReaderWriter.ReadFile --job Default --benchmarkId 0 in /Users/eldrichmetler/Code/BankOCR/BankOCR.Benchm/bin/Release/net8.0/24ce048e-1089-460a-ab97-6ba41476a78f/bin/Release/net8.0
+// Failed to set up high priority (Permission denied). In order to run benchmarks with high priority, make sure you have the right permissions.
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// BenchmarkDotNet v0.13.12
+// Runtime=.NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 329385.00 ns, 329.3850 us/op
+WorkloadJitting  1: 1 op, 2935635.00 ns, 2.9356 ms/op
+
+OverheadJitting  2: 16 op, 305860.00 ns, 19.1163 us/op
+WorkloadJitting  2: 16 op, 19561814.00 ns, 1.2226 ms/op
+
+WorkloadPilot    1: 16 op, 19936662.00 ns, 1.2460 ms/op
+WorkloadPilot    2: 32 op, 35946338.00 ns, 1.1233 ms/op
+WorkloadPilot    3: 64 op, 73106841.00 ns, 1.1423 ms/op
+WorkloadPilot    4: 128 op, 201206634.00 ns, 1.5719 ms/op
+WorkloadPilot    5: 256 op, 370180869.00 ns, 1.4460 ms/op
+WorkloadPilot    6: 512 op, 487155966.00 ns, 951.4765 us/op
+WorkloadPilot    7: 1024 op, 872609651.00 ns, 852.1579 us/op
+
+OverheadWarmup   1: 1024 op, 4443.00 ns, 4.3389 ns/op
+OverheadWarmup   2: 1024 op, 3813.00 ns, 3.7236 ns/op
+OverheadWarmup   3: 1024 op, 3597.00 ns, 3.5127 ns/op
+OverheadWarmup   4: 1024 op, 3499.00 ns, 3.4170 ns/op
+OverheadWarmup   5: 1024 op, 3579.00 ns, 3.4951 ns/op
+OverheadWarmup   6: 1024 op, 3733.00 ns, 3.6455 ns/op
+OverheadWarmup   7: 1024 op, 5183.00 ns, 5.0615 ns/op
+OverheadWarmup   8: 1024 op, 3844.00 ns, 3.7539 ns/op
+OverheadWarmup   9: 1024 op, 3684.00 ns, 3.5977 ns/op
+OverheadWarmup  10: 1024 op, 3493.00 ns, 3.4111 ns/op
+
+OverheadActual   1: 1024 op, 3561.00 ns, 3.4775 ns/op
+OverheadActual   2: 1024 op, 3523.00 ns, 3.4404 ns/op
+OverheadActual   3: 1024 op, 3915.00 ns, 3.8232 ns/op
+OverheadActual   4: 1024 op, 4182.00 ns, 4.0840 ns/op
+OverheadActual   5: 1024 op, 3750.00 ns, 3.6621 ns/op
+OverheadActual   6: 1024 op, 3814.00 ns, 3.7246 ns/op
+OverheadActual   7: 1024 op, 3885.00 ns, 3.7939 ns/op
+OverheadActual   8: 1024 op, 3611.00 ns, 3.5264 ns/op
+OverheadActual   9: 1024 op, 3562.00 ns, 3.4785 ns/op
+OverheadActual  10: 1024 op, 3907.00 ns, 3.8154 ns/op
+OverheadActual  11: 1024 op, 3532.00 ns, 3.4492 ns/op
+OverheadActual  12: 1024 op, 3527.00 ns, 3.4443 ns/op
+OverheadActual  13: 1024 op, 3745.00 ns, 3.6572 ns/op
+OverheadActual  14: 1024 op, 3491.00 ns, 3.4092 ns/op
+OverheadActual  15: 1024 op, 3553.00 ns, 3.4697 ns/op
+OverheadActual  16: 1024 op, 4813.00 ns, 4.7002 ns/op
+OverheadActual  17: 1024 op, 4215.00 ns, 4.1162 ns/op
+OverheadActual  18: 1024 op, 3602.00 ns, 3.5176 ns/op
+OverheadActual  19: 1024 op, 3575.00 ns, 3.4912 ns/op
+OverheadActual  20: 1024 op, 3519.00 ns, 3.4365 ns/op
+
+WorkloadWarmup   1: 1024 op, 901824675.00 ns, 880.6882 us/op
+WorkloadWarmup   2: 1024 op, 907809696.00 ns, 886.5329 us/op
+WorkloadWarmup   3: 1024 op, 894996077.00 ns, 874.0196 us/op
+WorkloadWarmup   4: 1024 op, 895187576.00 ns, 874.2066 us/op
+WorkloadWarmup   5: 1024 op, 887649305.00 ns, 866.8450 us/op
+WorkloadWarmup   6: 1024 op, 918003690.00 ns, 896.4880 us/op
+
+// BeforeActualRun
+WorkloadActual   1: 1024 op, 894113543.00 ns, 873.1578 us/op
+WorkloadActual   2: 1024 op, 892988658.00 ns, 872.0592 us/op
+WorkloadActual   3: 1024 op, 898472595.00 ns, 877.4146 us/op
+WorkloadActual   4: 1024 op, 914488918.00 ns, 893.0556 us/op
+WorkloadActual   5: 1024 op, 891714605.00 ns, 870.8150 us/op
+WorkloadActual   6: 1024 op, 901457459.00 ns, 880.3295 us/op
+WorkloadActual   7: 1024 op, 890783947.00 ns, 869.9062 us/op
+WorkloadActual   8: 1024 op, 904337793.00 ns, 883.1424 us/op
+WorkloadActual   9: 1024 op, 902507553.00 ns, 881.3550 us/op
+WorkloadActual  10: 1024 op, 912272334.00 ns, 890.8910 us/op
+WorkloadActual  11: 1024 op, 899711630.00 ns, 878.6246 us/op
+WorkloadActual  12: 1024 op, 898393938.00 ns, 877.3378 us/op
+WorkloadActual  13: 1024 op, 912674162.00 ns, 891.2834 us/op
+WorkloadActual  14: 1024 op, 896764814.00 ns, 875.7469 us/op
+WorkloadActual  15: 1024 op, 911956985.00 ns, 890.5830 us/op
+
+// AfterActualRun
+WorkloadResult   1: 1024 op, 894109936.50 ns, 873.1542 us/op
+WorkloadResult   2: 1024 op, 892985051.50 ns, 872.0557 us/op
+WorkloadResult   3: 1024 op, 898468988.50 ns, 877.4111 us/op
+WorkloadResult   4: 1024 op, 914485311.50 ns, 893.0521 us/op
+WorkloadResult   5: 1024 op, 891710998.50 ns, 870.8115 us/op
+WorkloadResult   6: 1024 op, 901453852.50 ns, 880.3260 us/op
+WorkloadResult   7: 1024 op, 890780340.50 ns, 869.9027 us/op
+WorkloadResult   8: 1024 op, 904334186.50 ns, 883.1389 us/op
+WorkloadResult   9: 1024 op, 902503946.50 ns, 881.3515 us/op
+WorkloadResult  10: 1024 op, 912268727.50 ns, 890.8874 us/op
+WorkloadResult  11: 1024 op, 899708023.50 ns, 878.6211 us/op
+WorkloadResult  12: 1024 op, 898390331.50 ns, 877.3343 us/op
+WorkloadResult  13: 1024 op, 912670555.50 ns, 891.2798 us/op
+WorkloadResult  14: 1024 op, 896761207.50 ns, 875.7434 us/op
+WorkloadResult  15: 1024 op, 911953378.50 ns, 890.5795 us/op
+// GC:  351 167 0 1157881872 1024
+// Threading:  0 0 1024
+
+// AfterAll
+// Benchmark Process 47359 has exited with code 0.
+
+Mean = 751.206 μs, StdErr = 1.455 μs (0.19%), N = 13, StdDev = 5.246 μs
+Min = 744.308 μs, Q1 = 747.670 μs, Median = 749.967 μs, Q3 = 754.938 μs, Max = 761.261 μs
+IQR = 7.267 μs, LowerFence = 736.770 μs, UpperFence = 765.839 μs
+ConfidenceInterval = [744.924 μs; 757.489 μs] (CI 99.9%), Margin = 6.282 μs (0.84% of Mean)
+Skewness = 0.4, Kurtosis = 1.84, MValue = 2
+
+// ** Remained 0 (0.0%) benchmark(s) to run. Estimated finish 2024-03-05 15:17 (0h 0m from now) **
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts/results/BankOCR.NTest.BenchReaderWriter-report.csv
+  BenchmarkDotNet.Artifacts/results/BankOCR.NTest.BenchReaderWriter-report-github.md
+  BenchmarkDotNet.Artifacts/results/BankOCR.NTest.BenchReaderWriter-report.html
+
+// * Detailed results *
+BenchReaderWriter.ReadFile: DefaultJob
+Runtime = .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2; GC = Concurrent Workstation
+Mean = 751.206 μs, StdErr = 1.455 μs (0.19%), N = 13, StdDev = 5.246 μs
+Min = 744.308 μs, Q1 = 747.670 μs, Median = 749.967 μs, Q3 = 754.938 μs, Max = 761.261 μs
+IQR = 7.267 μs, LowerFence = 736.770 μs, UpperFence = 765.839 μs
+ConfidenceInterval = [744.924 μs; 757.489 μs] (CI 99.9%), Margin = 6.282 μs (0.84% of Mean)
+Skewness = 0.4, Kurtosis = 1.84, MValue = 2
+-------------------- Histogram --------------------
+[741.380 μs ; 764.189 μs) | @@@@@@@@@@@@@
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet v0.13.12, macOS Big Sur 11.7.8 (20G1351) [Darwin 20.6.0]
+Intel Core i7-4770HQ CPU 2.20GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK 8.0.200
+  [Host]     : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.2 (8.0.224.6711), X64 RyuJIT AVX2
+
+
+| Method   | Mean     | Error   | StdDev  | Gen0     | Gen1     | Gen2   | Allocated |
+|--------- |---------:|--------:|--------:|---------:|---------:|-------:|----------:|
+| ReadFile | 751.2 μs | 6.28 μs | 5.25 μs | 336.9141 | 162.1094 | 0.9766 |   1.08 MB |
+
+// * Hints *
+Outliers
+  BenchReaderWriter.ReadFile: Default -> 2 outliers were removed (771.62 μs, 871.41 μs)
+
+// * Legends *
+  Mean      : Arithmetic mean of all measurements
+  Error     : Half of 99.9% confidence interval
+  StdDev    : Standard deviation of all measurements
+  Gen0      : GC Generation 0 collects per 1000 operations
+  Gen1      : GC Generation 1 collects per 1000 operations
+  Gen2      : GC Generation 2 collects per 1000 operations
+  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  1 μs      : 1 Microsecond (0.000001 sec)
+
+// * Diagnostic Output - EventPipeProfiler *
+Exported 1 trace file(s). Example:
+/Users/eldrichmetler/Code/BankOCR/BankOCR.Benchm/BenchmarkDotNet.Artifacts/BankOCR.NTest.BenchReaderWriter.ReadFile-20240305-151714.speedscope.json
+
+// * Diagnostic Output - MemoryDiagnoser *
+
+
+// ***** BenchmarkRunner: End *****
+Run time: 00:00:48 (48.12 sec), executed benchmarks: 1
+
+Global total time: 00:00:56 (56.39 sec), executed benchmarks: 1
+// * Artifacts cleanup *
+Artifacts cleanup is finished

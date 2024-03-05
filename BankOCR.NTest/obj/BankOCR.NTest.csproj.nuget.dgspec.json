@@ -105,6 +105,22 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BenchmarkDotNet": {
+              "target": "Package",
+              "version": "[0.13.12, )"
+            },
+            "BenchmarkDotNet.Annotations": {
+              "target": "Package",
+              "version": "[0.13.12, )"
+            },
+            "BenchmarkDotNet.Diagnostics.dotTrace": {
+              "target": "Package",
+              "version": "[0.13.12, )"
+            },
+            "BenchmarkDotNet.Templates": {
+              "target": "Package",
+              "version": "[0.13.12, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.8.0, )"
