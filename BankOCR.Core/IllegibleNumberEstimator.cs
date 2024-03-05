@@ -44,12 +44,14 @@ public class IllegibleNumberEstimator : IAccountNumberEstimator
 
         if(accountNumber.Split("?").Length != 2)
         {
-            throw new NotSupportedException("accountNumber should contain exactly one illegible digit");
+            throw new NotSupportedException(
+                "accountNumber should contain exactly one illegible digit");
         }   
 
         if(digitFaults == null || digitFaults.Count != 1)
         {
-            throw new NotSupportedException("digitFaults should be a non-empty dictionary with exactly one entry");
+            throw new NotSupportedException(
+                "digitFaults should be a non-empty dictionary with exactly one entry");
         }
 
         HashSet<KeyValuePair<string, int>> matches = new();

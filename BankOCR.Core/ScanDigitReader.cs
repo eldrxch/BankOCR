@@ -4,9 +4,6 @@ namespace BankOCR.Core;
 
 public class ScanDigitReader : IDigitReader
 {
-    private const string DigitsExceptionDescr = 
-    "digits must be an array of length 4 and each entry must be of length 27";
-
     private readonly string[] _digits;
     private readonly int _maxLineLen;
     private readonly int _xLen;
@@ -17,6 +14,8 @@ public class ScanDigitReader : IDigitReader
     private int _readStartCount;
     private int _readEndCount;
 
+    private Exception DigitsException => new NotSupportedException(
+                "digits must be an array of length 4 and each entry must be of length 27");            
 
     public ScanDigitReader(string[] digits)
     {
@@ -52,7 +51,7 @@ public class ScanDigitReader : IDigitReader
     {
         if (!isDigitsValid())
         {
-            throw new NotSupportedException(DigitsExceptionDescr);
+            throw DigitsException;
         }
         
         string[] segments =
@@ -70,7 +69,7 @@ public class ScanDigitReader : IDigitReader
     {
         if (!isDigitsValid())
         {
-            throw new NotSupportedException(DigitsExceptionDescr);
+            throw DigitsException;
         }
 
         string[] segments =
@@ -88,7 +87,7 @@ public class ScanDigitReader : IDigitReader
     {
         if (!isDigitsValid())
         {
-            throw new NotSupportedException(DigitsExceptionDescr);
+            throw DigitsException;
         }
 
         if (_readStartCount >= _readEndCount ||

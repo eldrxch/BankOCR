@@ -2,8 +2,6 @@ namespace BankOCR.Core;
 
 public class ScanDigitParser : IDigitParser
 {
-    private const string DigitsExceptionDescr = 
-        "entry must be an array of length 4 and each entry must be of length 3"; 
     private const int MaxStringLen = 3;
     private const int MaxEntryLen = 4;
     private readonly Dictionary<string, int> DigitMap = new Dictionary<string, int>
@@ -22,13 +20,13 @@ public class ScanDigitParser : IDigitParser
 
     private string[]? _entry;
 
-    private bool isEntryValid(){
-        if(_entry == null || _entry.Length != MaxEntryLen)
+    private bool isEntryValid(string[] entry){
+        if(entry == null || entry.Length != MaxEntryLen)
         {
             return false;
         }
         
-        foreach (var e in _entry)
+        foreach (var e in entry)
         {
             if(e.Length != MaxStringLen)
             {
@@ -38,24 +36,16 @@ public class ScanDigitParser : IDigitParser
         return true;
     }
 
-    public void Entry(string[] entry)
+    public int Parse(string[] digitEntry)
     {
-        _entry = entry;
-
-        if(!isEntryValid())
+        if(!isEntryValid(digitEntry))
         {
-            throw new NotSupportedException(DigitsExceptionDescr);
-        }
-    }
-
-    public int Parse()
-    {
-        if(!isEntryValid())
-        {
-            throw new NotSupportedException(DigitsExceptionDescr);
+            throw new NotSupportedException(
+                 "entry must be an array of length 4 and each entry must be of length 3"
+            );
         }
 
-        var key = string.Join("", _entry);        
+        var key = string.Join("", digitEntry);        
         if(!DigitMap.TryGetValue(key, out int value))
         {
             throw new KeyNotFoundException($"The entry cannot be parsed");

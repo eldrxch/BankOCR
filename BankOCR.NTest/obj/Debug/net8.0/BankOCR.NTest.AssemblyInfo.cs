@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BankOCR.NTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e868665589e16c3b047dcd3c722be564400926f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08bd0f29b04a4af9fa42957120b710352a671d82")]
 [assembly: System.Reflection.AssemblyProductAttribute("BankOCR.NTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BankOCR.NTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

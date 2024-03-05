@@ -93,9 +93,8 @@ public class TestScanDigitParser
     [TestCaseSource(nameof(ParseValidCases))]
     public void Parse_Should_Digit(string[] entry, int expect)
     {
-        var parser = new ScanDigitParser();
-        parser.Entry(entry);
-        var value = parser.Parse();
+        var parser = new ScanDigitParser();        
+        var value = parser.Parse(entry);
         TestContext.WriteLine($"Expected: {expect} Actual: {value}");
         Assert.That(value, Is.EqualTo(expect));
     }
@@ -104,8 +103,7 @@ public class TestScanDigitParser
     [TestCaseSource(nameof(ErrorCases))]
     public void Parse_Should_Error(string[] entry)
     {
-        var parser = new ScanDigitParser();
-        parser.Entry(entry);
-        Assert.Throws<KeyNotFoundException>(() => parser.Parse());
+        var parser = new ScanDigitParser();        
+        Assert.Throws<KeyNotFoundException>(() => parser.Parse(entry));
     }
 }

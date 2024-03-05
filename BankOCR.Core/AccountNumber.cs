@@ -4,6 +4,13 @@ using System.Text;
 
 public class AccountNumber
 {
+    public enum AccountNumberStatus
+    {
+        Valid,
+        Invalid,
+        Illegible
+    }
+
     private const string IllegibleCode = "?";
     private IDigitReader _reader;
     private IDigitParser _parser;    
@@ -34,9 +41,8 @@ public class AccountNumber
                 try
                 {
                     if (count >= _accLen) break;
-                    digits = _reader.NextFromStart();
-                    _parser.Entry(digits);
-                    value[sPos] = _parser.Parse().ToString();
+                    digits = _reader.NextFromStart();                    
+                    value[sPos] = _parser.Parse(digits).ToString();
                 }
                 catch(KeyNotFoundException)
                 {
@@ -50,9 +56,8 @@ public class AccountNumber
                 try
                 {
                     if (count >= _accLen) break;
-                    digits = _reader.NextFromEnd();
-                    _parser.Entry(digits);
-                    value[ePos-1] = _parser.Parse().ToString();
+                    digits = _reader.NextFromEnd();                    
+                    value[ePos-1] = _parser.Parse(digits).ToString();
                 }
                 catch (KeyNotFoundException)
                 {                    
